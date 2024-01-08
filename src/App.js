@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useEffect } from "react";
+import axios from 'react'
+import "./App.css";
+import Body from "./Components/Body"
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      const encodedParams = new URLSearchParams();
+      encodedParams.set("source_language", "en");
+      encodedParams.set("target_language", "id");
+      encodedParams.set("text", "What is your name?");
+      
+      const options = {
+        method: "POST",
+        url: "https://text-translator2.p.rapidapi.com/translate",
+        headers: {
+          "content-type": "application/x-www-form-urlencoded",
+          "X-RapidAPI-Key":
+            "18df0ad753msh8339d3815f02a0ep1454e5jsn28f139d105be",
+          "X-RapidAPI-Host": "text-translator2.p.rapidapi.com",
+        },
+        data: encodedParams,
+      };
+
+      try {
+        const response = await axios.request(options);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  }, []);
+  return <div className="App">
+    <Body />
+  </div>;
 }
 
 export default App;
