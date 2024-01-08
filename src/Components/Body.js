@@ -1,37 +1,44 @@
-import React, { useEffect } from "react";
 import "./Body.css";
+import React from 'react';
 function body(props) {
-    
-    function HandleClick(){
-            
+    function HandleClick(e) {
+        props.setCount((prev)=>prev+1);   
     }
   return (
     <div className="container">
       <div className="wrapper">
         <div className="textInput">
           <textarea
-            name=""
+            name="" value={props.textToTrans}
             className="from-text"
-            placeholder="Enter text"
+            placeholder="Enter text" onChange={((e)=>{
+                props.setTextToTrans(e.target.value)
+            })}
           ></textarea>
           <textarea
-            name=""
+            name="" value={props.transText}
             className="to-text"
             placeholder="Translation"
           ></textarea>
         </div>
 
         <div className="controls">
-              <select>
-                <option value="">English</option>
-                <option value="">Hindi</option>
-              </select>
-         
-              <select>
-                <option value="">English</option>
-                <option value="">Hindi</option>
-              </select>
-          </div>
+          <select value={props.fromLang} onChange={(e)=>{
+            props.setFromLang(e.target.value)
+          }}>
+            {props.data.data.languages.map((e) => {
+              return <option value={e.code}>{e.name}({e.code})</option>;
+            })}
+          </select>
+
+          <select value={props.toLang} onChange={(e)=>{
+            props.setToLang(e.target.value)
+          }}>
+            {props.data.data.languages.map((e) => {
+              return <option value={e.code}>{e.name}({e.code})</option>;
+            })}
+          </select>
+        </div>
       </div>
       <button onClick={HandleClick}>Translate Text</button>
     </div>
