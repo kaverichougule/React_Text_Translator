@@ -19,7 +19,7 @@ function body(props) {
             name="" value={props.transText}
             className="to-text"
             placeholder="Translation"
-          ></textarea>
+          >{props.transText}</textarea>
         </div>
 
         <div className="controls">
