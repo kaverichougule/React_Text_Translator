@@ -3,6 +3,7 @@ import axios from 'react'
 import "./App.css";
 import Body from "./Components/Body"
 function App() {
+  document.title="Text Translator"
   useEffect(() => {
     const fetchData = async () => {
       const encodedParams = new URLSearchParams();
